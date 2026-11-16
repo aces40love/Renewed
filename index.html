@@ -3,59 +3,484 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Renewed</title>
-  <meta name="description" content="Renewed">
+  <title>Website Development Questionnaire</title>
+  <meta name="description" content="A short questionnaire for a new website or a redesign.">
   <style>
-    :root { color-scheme: light; }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
-    body {
-      min-height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f6f1e7;
-      color: #17352c;
-      font-family: Georgia, "Iowan Old Style", Palatino, serif;
+    :root {
+      color-scheme: light;
+      --ink: #1c211e;
+      --muted: #5e675f;
+      --forest: #17352c;
+      --brass: #b8956a;
+      --paper: #f6f1e7;
+      --field: #fffdf8;
+      --line: #ddd4c6;
     }
-    main { width: min(680px, calc(100% - 48px)); }
-    p.kicker {
-      margin: 0 0 14px;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Iowan Old Style", Palatino, serif;
+      line-height: 1.45;
+    }
+    header {
+      background: var(--forest);
+      color: #f6f1e7;
+      padding: 36px 20px 28px;
+    }
+    header .wrap, main, footer .wrap { width: min(760px, calc(100% - 32px)); margin: 0 auto; }
+    .kicker {
+      margin: 0 0 8px;
       font-family: Helvetica, Arial, sans-serif;
       font-size: 12px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #8a6844;
+      color: #e4c89a;
     }
-    h1 {
-      margin: 0;
+    h1 { margin: 0; font-size: clamp(32px, 6vw, 46px); font-weight: 500; line-height: 1.05; }
+    header p { margin: 12px 0 0; max-width: 38rem; color: #e6dfd2; font-family: Helvetica, Arial, sans-serif; font-size: 16px; }
+    main { padding: 8px 0 48px; }
+    section { margin-top: 28px; }
+    h2 {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin: 0 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      color: var(--forest);
+      font-size: 22px;
       font-weight: 500;
-      font-size: clamp(56px, 12vw, 92px);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
     }
-    .rule {
-      width: 72px;
-      height: 2px;
-      margin: 28px 0 22px;
-      background: #b8956a;
-    }
-    p.line {
-      margin: 0;
-      max-width: 28rem;
+    h2 span { color: var(--brass); font-family: Helvetica, Arial, sans-serif; font-size: 13px; }
+    .note, label, legend, .choice, button, .status {
       font-family: Helvetica, Arial, sans-serif;
-      font-size: 18px;
-      line-height: 1.5;
-      color: #3d4a44;
     }
+    .note { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+    .grid { display: grid; gap: 12px; }
+    .two { grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .two { grid-template-columns: 1fr 1fr; } }
+    label, legend { display: block; margin-bottom: 6px; color: var(--muted); font-size: 13px; }
+    fieldset { margin: 0 0 14px; padding: 0; border: 0; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--field);
+      color: var(--ink);
+      font: 16px Helvetica, Arial, sans-serif;
+      padding: 10px 12px;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .choices { display: grid; gap: 8px 16px; }
+    .choices.two { grid-template-columns: 1fr; }
+    .choices.three { grid-template-columns: 1fr; }
+    @media (min-width: 700px) {
+      .choices.two { grid-template-columns: 1fr 1fr; }
+      .choices.three { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .choice input { margin-top: 3px; }
+    .other { display: flex; gap: 8px; align-items: center; }
+    .other input[type="text"] { flex: 1; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    button {
+      border: 0;
+      background: var(--forest);
+      color: #f6f1e7;
+      font-size: 16px;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    button.secondary { background: transparent; color: var(--forest); border: 1px solid var(--forest); }
+    .status { min-height: 1.4em; margin: 12px 0 0; color: var(--forest); font-size: 14px; }
+    footer { padding: 0 0 36px; color: var(--muted); font-family: Helvetica, Arial, sans-serif; font-size: 13px; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="wrap">
+      <p class="kicker">Questionnaire</p>
+      <h1>Website Development Questionnaire</h1>
+      <p>Answer what you can. If you are not sure, leave it blank. When you finish, email the answers back.</p>
+    </div>
+  </header>
   <main>
-    <p class="kicker">Website</p>
-    <h1>Renewed</h1>
-    <div class="rule"></div>
-    <p class="line">This is the public home for Renewed.</p>
+    <form id="questionnaire">
+      <section>
+        <h2><span>01</span> About you</h2>
+        <div class="grid">
+          <div>
+            <label for="business_name">Business or organization</label>
+            <input id="business_name" name="business_name" type="text" autocomplete="organization">
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="contact_name">Your name</label>
+              <input id="contact_name" name="contact_name" type="text" autocomplete="name">
+            </div>
+            <div>
+              <label for="contact_role">Your role</label>
+              <input id="contact_role" name="contact_role" type="text">
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email">
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="grid two">
+            <div>
+              <label for="location">City and state</label>
+              <input id="location" name="location" type="text" autocomplete="address-level2">
+            </div>
+            <div>
+              <label for="current_website">Current website, if you have one</label>
+              <input id="current_website" name="current_website" type="text" inputmode="url" autocomplete="url">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>02</span> The project</h2>
+        <fieldset>
+          <legend>What do you need?</legend>
+          <div class="choices two">
+            <label class="choice"><input type="radio" name="project_type" value="A new website"> A new website</label>
+            <label class="choice"><input type="radio" name="project_type" value="A redesign"> A redesign</label>
+            <label class="choice"><input type="radio" name="project_type" value="One page"> One page</label>
+            <label class="choice"><input type="radio" name="project_type" value="Not sure yet"> Not sure yet</label>
+          </div>
+        </fieldset>
+        <div class="grid">
+          <div>
+            <label for="goal">What should the website accomplish?</label>
+            <textarea id="goal" name="goal"></textarea>
+          </div>
+          <div>
+            <label for="audience">Who should it reach?</label>
+            <textarea id="audience" name="audience"></textarea>
+          </div>
+        </div>
+        <fieldset>
+          <legend>What should a visitor do? Check all that apply.</legend>
+          <div class="choices two">
+            <label class="choice"><input type="checkbox" name="action_contact" value="Yes"> Call or email us</label>
+            <label class="choice"><input type="checkbox" name="action_quote" value="Yes"> Request a quote or consultation</label>
+            <label class="choice"><input type="checkbox" name="action_book" value="Yes"> Book an appointment</label>
+            <label class="choice"><input type="checkbox" name="action_buy" value="Yes"> Buy something</label>
+            <label class="choice"><input type="checkbox" name="action_learn" value="Yes"> Learn about the business</label>
+            <label class="choice"><input type="checkbox" name="action_join" value="Yes"> Apply, join, or volunteer</label>
+          </div>
+          <div class="other" style="margin-top:10px">
+            <label class="choice"><input type="checkbox" name="action_other" value="Yes"> Something else</label>
+            <input name="action_other_text" type="text" aria-label="Something else">
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <h2><span>03</span> The business</h2>
+        <div class="grid">
+          <div>
+            <label for="what_you_do">What do you do?</label>
+            <textarea id="what_you_do" name="what_you_do"></textarea>
+          </div>
+          <div>
+            <label for="why_you">Why do people choose you?</label>
+            <textarea id="why_you" name="why_you"></textarea>
+          </div>
+          <div>
+            <label for="must_understand">What should a visitor understand right away?</label>
+            <textarea id="must_understand" name="must_understand"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>04</span> Pages</h2>
+        <p class="note">Check the pages you expect. This can change.</p>
+        <div class="choices three">
+          <label class="choice"><input type="checkbox" name="page_home" value="Yes"> Home</label>
+          <label class="choice"><input type="checkbox" name="page_about" value="Yes"> About</label>
+          <label class="choice"><input type="checkbox" name="page_services" value="Yes"> Services</label>
+          <label class="choice"><input type="checkbox" name="page_work" value="Yes"> Work or portfolio</label>
+          <label class="choice"><input type="checkbox" name="page_pricing" value="Yes"> Pricing</label>
+          <label class="choice"><input type="checkbox" name="page_testimonials" value="Yes"> Testimonials</label>
+          <label class="choice"><input type="checkbox" name="page_blog" value="Yes"> News or blog</label>
+          <label class="choice"><input type="checkbox" name="page_contact" value="Yes"> Contact</label>
+          <label class="choice"><input type="checkbox" name="page_shop" value="Yes"> Shop</label>
+          <label class="choice"><input type="checkbox" name="page_team" value="Yes"> Team</label>
+          <label class="choice"><input type="checkbox" name="page_faq" value="Yes"> Questions</label>
+          <label class="choice"><input type="checkbox" name="page_locations" value="Yes"> Locations</label>
+          <label class="choice"><input type="checkbox" name="page_events" value="Yes"> Events</label>
+        </div>
+        <div class="other" style="margin-top:10px">
+          <label class="choice"><input type="checkbox" name="page_other" value="Yes"> Other</label>
+          <input name="page_other_text" type="text" aria-label="Other page">
+        </div>
+      </section>
+
+      <section>
+        <h2><span>05</span> Features</h2>
+        <div class="choices three">
+          <label class="choice"><input type="checkbox" name="feature_contact" value="Yes"> Contact form</label>
+          <label class="choice"><input type="checkbox" name="feature_quote" value="Yes"> Quote request</label>
+          <label class="choice"><input type="checkbox" name="feature_booking" value="Yes"> Appointment booking</label>
+          <label class="choice"><input type="checkbox" name="feature_payment" value="Yes"> Online payment</label>
+          <label class="choice"><input type="checkbox" name="feature_gallery" value="Yes"> Photo gallery</label>
+          <label class="choice"><input type="checkbox" name="feature_video" value="Yes"> Video</label>
+          <label class="choice"><input type="checkbox" name="feature_map" value="Yes"> Map and directions</label>
+          <label class="choice"><input type="checkbox" name="feature_newsletter" value="Yes"> Email signup</label>
+          <label class="choice"><input type="checkbox" name="feature_login" value="Yes"> Customer login</label>
+          <label class="choice"><input type="checkbox" name="feature_search" value="Yes"> Site search</label>
+          <label class="choice"><input type="checkbox" name="feature_downloads" value="Yes"> File downloads</label>
+          <label class="choice"><input type="checkbox" name="feature_chat" value="Yes"> Live chat</label>
+          <label class="choice"><input type="checkbox" name="feature_language" value="Yes"> More than one language</label>
+        </div>
+        <div class="other" style="margin-top:10px">
+          <label class="choice"><input type="checkbox" name="feature_other" value="Yes"> Other</label>
+          <input name="feature_other_text" type="text" aria-label="Other feature">
+        </div>
+      </section>
+
+      <section>
+        <h2><span>06</span> What you already have</h2>
+        <fieldset>
+          <legend>Logo</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="logo" value="Yes"> Yes</label>
+            <label class="choice"><input type="radio" name="logo" value="No"> No</label>
+            <label class="choice"><input type="radio" name="logo" value="In progress"> In progress</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Colors or a style guide</legend>
+          <div class="choices two">
+            <label class="choice"><input type="radio" name="brand" value="Yes"> Yes</label>
+            <label class="choice"><input type="radio" name="brand" value="No"> No</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Photographs</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="photos" value="Professional"> Professional</label>
+            <label class="choice"><input type="radio" name="photos" value="Everyday photos"> Everyday photos</label>
+            <label class="choice"><input type="radio" name="photos" value="We need photographs"> We need photographs</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Page wording</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="wording" value="Ready"> Ready</label>
+            <label class="choice"><input type="radio" name="wording" value="Partly written"> Partly written</label>
+            <label class="choice"><input type="radio" name="wording" value="Please help write it"> Please help write it</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Domain name</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="domain_status" value="We own it"> We own it</label>
+            <label class="choice"><input type="radio" name="domain_status" value="We need one"> We need one</label>
+            <label class="choice"><input type="radio" name="domain_status" value="Not sure"> Not sure</label>
+          </div>
+        </fieldset>
+        <div class="grid two">
+          <div>
+            <label for="domain_name">Domain name, if you have one</label>
+            <input id="domain_name" name="domain_name" type="text">
+          </div>
+          <div>
+            <label for="host_name">Current host, if you know it</label>
+            <input id="host_name" name="host_name" type="text">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>07</span> Examples</h2>
+        <div class="grid">
+          <div>
+            <label for="liked_sites">Websites you like, and what you like about them</label>
+            <textarea id="liked_sites" name="liked_sites"></textarea>
+          </div>
+          <div>
+            <label for="avoid">Anything you want to avoid</label>
+            <textarea id="avoid" name="avoid"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>08</span> Timing and decisions</h2>
+        <div class="grid two">
+          <div>
+            <label for="launch_timing">When would you like the site ready?</label>
+            <input id="launch_timing" name="launch_timing" type="text">
+          </div>
+          <div>
+            <label for="budget">Budget, if you have one in mind</label>
+            <input id="budget" name="budget" type="text">
+          </div>
+        </div>
+        <fieldset>
+          <legend>Is that date firm?</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="launch_flexibility" value="That date is firm"> That date is firm</label>
+            <label class="choice"><input type="radio" name="launch_flexibility" value="Flexible"> Flexible</label>
+            <label class="choice"><input type="radio" name="launch_flexibility" value="Not set yet"> Not set yet</label>
+          </div>
+        </fieldset>
+        <label class="choice"><input type="checkbox" name="budget_undecided" value="Yes"> Budget is not decided</label>
+        <div class="grid two" style="margin-top:12px">
+          <div>
+            <label for="approver">Who will approve the design and the wording?</label>
+            <input id="approver" name="approver" type="text">
+          </div>
+          <div>
+            <label for="content_provider">Who will provide the logo, photos, and page text?</label>
+            <input id="content_provider" name="content_provider" type="text">
+          </div>
+        </div>
+        <fieldset>
+          <legend>Best way to reach you</legend>
+          <div class="choices three">
+            <label class="choice"><input type="radio" name="contact_preference" value="Email"> Email</label>
+            <label class="choice"><input type="radio" name="contact_preference" value="Phone"> Phone</label>
+            <label class="choice"><input type="radio" name="contact_preference" value="Either"> Either</label>
+          </div>
+        </fieldset>
+        <div>
+          <label for="anything_else">Anything else we should know?</label>
+          <textarea id="anything_else" name="anything_else"></textarea>
+        </div>
+        <div class="actions">
+          <button type="submit">Email the completed form</button>
+          <button type="button" class="secondary" id="copy">Copy answers</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+    </form>
   </main>
+  <footer>
+    <div class="wrap">The answers come back to pboals@theboalsgroup.com.</div>
+  </footer>
+  <script>
+    const labels = {
+      business_name: "Business or organization",
+      contact_name: "Your name",
+      contact_role: "Your role",
+      email: "Email",
+      phone: "Phone",
+      location: "City and state",
+      current_website: "Current website",
+      project_type: "What do you need?",
+      goal: "What should the website accomplish?",
+      audience: "Who should it reach?",
+      action_contact: "Call or email us",
+      action_quote: "Request a quote or consultation",
+      action_book: "Book an appointment",
+      action_buy: "Buy something",
+      action_learn: "Learn about the business",
+      action_join: "Apply, join, or volunteer",
+      action_other: "Something else",
+      action_other_text: "Something else, details",
+      what_you_do: "What do you do?",
+      why_you: "Why do people choose you?",
+      must_understand: "What should a visitor understand right away?",
+      page_home: "Page: Home",
+      page_about: "Page: About",
+      page_services: "Page: Services",
+      page_work: "Page: Work or portfolio",
+      page_pricing: "Page: Pricing",
+      page_testimonials: "Page: Testimonials",
+      page_blog: "Page: News or blog",
+      page_contact: "Page: Contact",
+      page_shop: "Page: Shop",
+      page_team: "Page: Team",
+      page_faq: "Page: Questions",
+      page_locations: "Page: Locations",
+      page_events: "Page: Events",
+      page_other: "Page: Other",
+      page_other_text: "Other page",
+      feature_contact: "Feature: Contact form",
+      feature_quote: "Feature: Quote request",
+      feature_booking: "Feature: Appointment booking",
+      feature_payment: "Feature: Online payment",
+      feature_gallery: "Feature: Photo gallery",
+      feature_video: "Feature: Video",
+      feature_map: "Feature: Map and directions",
+      feature_newsletter: "Feature: Email signup",
+      feature_login: "Feature: Customer login",
+      feature_search: "Feature: Site search",
+      feature_downloads: "Feature: File downloads",
+      feature_chat: "Feature: Live chat",
+      feature_language: "Feature: More than one language",
+      feature_other: "Feature: Other",
+      feature_other_text: "Other feature",
+      logo: "Logo",
+      brand: "Colors or a style guide",
+      photos: "Photographs",
+      wording: "Page wording",
+      domain_status: "Domain name status",
+      domain_name: "Domain name",
+      host_name: "Current host",
+      liked_sites: "Websites you like",
+      avoid: "Anything to avoid",
+      launch_timing: "When should the site be ready?",
+      budget: "Budget",
+      launch_flexibility: "Is that date firm?",
+      budget_undecided: "Budget is not decided",
+      approver: "Who approves the work?",
+      content_provider: "Who provides the logo, photos, and page text?",
+      contact_preference: "Best way to reach you",
+      anything_else: "Anything else"
+    };
+
+    function answers() {
+      const data = new FormData(document.getElementById("questionnaire"));
+      const lines = ["Website Development Questionnaire", ""];
+      for (const [key, value] of data.entries()) {
+        const text = String(value).trim();
+        if (!text) continue;
+        lines.push(labels[key] + ": " + text);
+      }
+      if (lines.length === 2) lines.push("No answers were entered.");
+      return lines.join("\n");
+    }
+
+    document.getElementById("questionnaire").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const who = document.getElementById("business_name").value.trim() || document.getElementById("contact_name").value.trim() || "a new reply";
+      const subject = "Website questionnaire from " + who;
+      const href = "mailto:pboals@theboalsgroup.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(answers());
+      document.getElementById("status").textContent = "Your email app should open with the answers. Send that message.";
+      window.location.href = href;
+    });
+
+    document.getElementById("copy").addEventListener("click", async function () {
+      const text = answers();
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("status").textContent = "Answers copied. You can paste them into a message.";
+      } catch (error) {
+        document.getElementById("status").textContent = "Copy did not work in this browser. Use the email button instead.";
+      }
+    });
+  </script>
 </body>
 </html>
